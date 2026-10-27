@@ -1,0 +1,32 @@
+name: Build fish calendar
+
+on:
+  push:
+    paths: ['fish.txt', 'build.py', '.github/workflows/build.yml']
+  schedule:
+    - cron: '17 3 * * *'   # daily, keeps the calendar 8 weeks ahead
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Get latest fish tracker data
+        run: |
+          git clone --depth 1 https://github.com/icykoneko/ff14-fish-tracker-app.git /tmp/tracker
+          node -e 'const fs=require("fs");let s=fs.readFileSync("/tmp/tracker/js/app/data.js","utf8");eval(s.replace(/^const DATA\s*=/m,"global.DATA="));fs.writeFileSync("/tmp/data.json",JSON.stringify(DATA))'
+      - name: Build calendar
+        run: python3 build.py /tmp/data.json fish.txt fish.ics
+      - name: Commit
+        run: |
+          git config user.name "fish-bot"
+          git config user.email "fish-bot@users.noreply.github.com"
+          git add fish.ics
+          git commit -m "Update fish calendar" || echo "No changes"
+          git push
