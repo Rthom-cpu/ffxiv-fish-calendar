@@ -13,6 +13,7 @@ WR, WT, ZONES = D['WEATHER_RATES'], D['WEATHER_TYPES'], D['ZONES']
 
 DAYS = 56
 ALERT_MIN = 20
+RARE_DAYS = 3        # fish opening on average once every RARE_DAYS+ days get "!!!"
 ETH = 175            # real seconds per Eorzean hour
 PERIOD = 8 * ETH     # one weather period
 TUG = {'light': '!', 'medium': '!!', 'heavy': '!!!'}
@@ -142,6 +143,12 @@ for line in open(LIST, encoding='utf-8'):
     else: unknown.append(name)
 
 T0 = int(time.time()); T1 = T0 + DAYS * 86400
+YEAR = 365 * 86400
+rare = set()
+for n, k in wanted.items():
+    count = len(windows(k, T0, T0 + YEAR))
+    if not count or YEAR / 86400 / count >= RARE_DAYS:
+        rare.add(n)
 ev = {}
 for n, k in wanted.items():
     for a, b in windows(k, T0 - 1200, T1):
@@ -158,15 +165,17 @@ for (a, b), names in sorted(ev.items()):
     desc = f"Window: {int(mins)}m{int(round((mins % 1) * 60)):02d}s\n\n" + \
            '\n\n'.join('\n'.join(notes(wanted[n])) for n in names)
     uid = '-'.join(str(wanted[n]) for n in names) + f"-{a}@ffxiv-bigfish"
+    flag = '!!! ' if rare & set(names) else ''
     out += ['BEGIN:VEVENT', f'UID:{uid}', f'DTSTAMP:{stamp}', f'DTSTART:{ts(a)}', f'DTEND:{ts(b)}',
-            fold('SUMMARY:' + esc('🐟 ' + ' + '.join(names))),
+            fold('SUMMARY:' + esc(flag + '🐟 ' + ' + '.join(names))),
             fold('LOCATION:' + esc(' | '.join(locs))),
             fold('DESCRIPTION:' + esc(desc)),
             'BEGIN:VALARM', 'ACTION:DISPLAY', f'TRIGGER:-PT{ALERT_MIN}M',
-            fold('DESCRIPTION:' + esc(' + '.join(names) + f' in {ALERT_MIN} min')), 'END:VALARM',
+            fold('DESCRIPTION:' + esc(flag + ' + '.join(names) + f' in {ALERT_MIN} min')), 'END:VALARM',
             'END:VEVENT']
 out.append('END:VCALENDAR')
 open(OUT, 'w', newline='', encoding='utf-8').write('\r\n'.join(out) + '\r\n')
 print(f"{len(wanted)} fish, {len(ev)} events, until {datetime.fromtimestamp(T1, timezone.utc):%Y-%m-%d}")
+print("Rare (!!!): " + (', '.join(sorted(rare)) or 'none'))
 if unknown:
     print("::warning::Not found in tracker data: " + ', '.join(unknown))
