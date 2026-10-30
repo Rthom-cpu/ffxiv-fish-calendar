@@ -3,7 +3,7 @@
 # The calendar rebuilds automatically a minute or two later.
 
 # Deep Canopy   (opens every ~70 min — remove the # to get alerts for it)
-Shined Copper Shark
+# Shined Copper Shark
 Triple Threat
 Muttering Matamata
 Lotl-in-waiting
