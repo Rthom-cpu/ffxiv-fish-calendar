@@ -23,7 +23,7 @@ Moxutural Greatgar
 Xehabopo'u
 Moonmarking Saucer
 Skyfrond
-Azure Diver
+# Azure Diver
 Vagrant Keeper
 Heirloom Goldgrouper
 Ole Ole Ole
