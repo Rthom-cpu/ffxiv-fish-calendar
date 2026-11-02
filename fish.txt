@@ -16,7 +16,7 @@ Rroneek Bichir
 Esperance Carp
 Bitterbark Caiman
 Gigagiant Snakehead
-Gondola Louvar
+# Gondola Louvar
 Sprouting Perch
 Iron Shadowtongue
 Moxutural Greatgar
