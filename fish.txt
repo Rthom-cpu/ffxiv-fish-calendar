@@ -8,7 +8,7 @@ Triple Threat
 Muttering Matamata
 Lotl-in-waiting
 Riverlong Candiru
-Shin Snuffler
+# Shin Snuffler
 Shuckfin Dace
 Crenicichla Miyaka
 Ttokatoa
