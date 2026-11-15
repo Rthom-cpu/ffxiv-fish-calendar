@@ -11,8 +11,8 @@ Lotl-in-waiting
 # Shin Snuffler
 # Shuckfin Dace
 Crenicichla Miyaka
-Ttokatoa
-Rroneek Bichir
+# Ttokatoa
+# Rroneek Bichir
 Esperance Carp
 Bitterbark Caiman
 Gigagiant Snakehead
