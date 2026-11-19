@@ -17,7 +17,7 @@ Esperance Carp
 Bitterbark Caiman
 Gigagiant Snakehead
 # Gondola Louvar
-Sprouting Perch
+# Sprouting Perch
 # Iron Shadowtongue
 Moxutural Greatgar
 Xehabopo'u
