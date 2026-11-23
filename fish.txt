@@ -6,7 +6,7 @@
 # Shined Copper Shark
 Triple Threat
 # Muttering Matamata
-Lotl-in-waiting
+# Lotl-in-waiting
 # Riverlong Candiru
 # Shin Snuffler
 # Shuckfin Dace
@@ -14,7 +14,7 @@ Crenicichla Miyaka
 # Ttokatoa
 # Rroneek Bichir
 Esperance Carp
-Bitterbark Caiman
+# Bitterbark Caiman
 Gigagiant Snakehead
 # Gondola Louvar
 # Sprouting Perch
